@@ -33,7 +33,7 @@ int main(void)
 		pinMode(dataPin, INPUT); 
 
 		waitForLow();
-        printf("reached Ack part");
+    
 		timeElapsed = waitForHigh();
 		//make sure timeElapsed is ~80
     
@@ -112,6 +112,7 @@ void append(int time, int index){
 }
 
 int waitForLow(){
+    printf("reached Ack part");
 	clock_t start = clock(), diff;
 	while(digitalRead(dataPin) == 1){
 
