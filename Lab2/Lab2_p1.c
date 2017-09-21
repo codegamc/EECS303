@@ -62,11 +62,11 @@ int main(void)
 		}
 		if(addBytes() == 1)
         {
-            fprintf("Temperature: %d C, Humidity: %d", byte1, byte3);
+            printf("Temperature: %d C, Humidity: %d", byte1, byte3);
             
         }
         else{
-            fprintf("comparison to checksum failed");
+            printf("comparison to checksum failed");
             
         }
 
