@@ -18,7 +18,7 @@ int main(void)
 	digitalWrite(dataPin, 1);
 
 
-	for(;;){
+	//for(;;){
 		digitalWrite(dataPin, 0);
 		delayMicroseconds(501);
 		digitalWrite(dataPin, 1);
@@ -55,11 +55,16 @@ int main(void)
 		}
 		if(addBytes())
         {
+            fprint("Temperature: %d C, Humidity: %d", byte1, byte3);
+            
+        }
+        else{
+            fprint("comparison to checksum failed");
             
         }
 
 
-	}
+	//}
 
 
 	return 0;
