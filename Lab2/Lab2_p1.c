@@ -12,6 +12,10 @@ int byte3 = 0;
 int byte4 = 0;
 int e = 0;
 
+//functions
+void append(int time, int index);
+
+
 int main(void)
 {
 	wiringPiSetupGpio();
