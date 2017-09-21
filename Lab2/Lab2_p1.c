@@ -43,7 +43,7 @@ int main(void)
 			e = waitForHigh();
 			//low before first bit, check it's roughly 50
 			if(e > 52 || e < 48){
-				break;
+				return(0);
 			}
 			timeElapsed = waitForLow();
 			append(timeElapsed, bitCount);//append checks how long it was high for and adds that data to a shift variable
@@ -52,7 +52,7 @@ int main(void)
 			bitCount++;
 		}
 		if(bitCount < 40){
-			break;
+			return(0);
 		}
 		if(addBytes() == 1)
         {
