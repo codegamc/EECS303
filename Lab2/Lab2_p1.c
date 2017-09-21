@@ -2,7 +2,7 @@
 #include <wiringPi.h>
 #include <time.h>
 
-constant int dataPin = 23;
+const int dataPin = 23;
 int timeElapsed;
 int error = 0;
 int data[40];
