@@ -14,6 +14,8 @@ int e = 0;
 
 //functions
 void append(int time, int index);
+int waitForLow();
+int waitForHigh();
 
 
 int main(void)
