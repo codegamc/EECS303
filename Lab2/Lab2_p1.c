@@ -35,6 +35,7 @@ int main(void)
 		waitForLow();
 		timeElapsed = waitForHigh();
 		//make sure timeElapsed is ~80
+        printf("reached Ack part");
 
 		timeElapsed = waitForLow();
 		//make sure time elapsed is 80
