@@ -6,6 +6,10 @@ constant int dataPin = 23;
 int timeElapsed;
 int error = 0;
 int data[40];
+int byte1 = 0;
+int byte2 = 0;
+int byte3 = 0;
+int byte4 = 0;
 
 int main(void)
 {
@@ -49,7 +53,10 @@ int main(void)
 		if(bitCount < 40){
 			break;
 		}
-		int sum = addBytes();
+		if(addBytes())
+        {
+            
+        }
 
 
 	}
@@ -58,8 +65,19 @@ int main(void)
 	return 0;
 }
 
-int addBytes(){
-	int byte1 = 2^7*data[7]+2^6*data[6]+2^5*data[5]+
+bool addBytes(){
+    byte1 = 128*data[7]+64*data[6]+32*data[5]+16*data[4]+8*data[3]+4*data[2]+2*data[1]+data[0];
+    byte2 = 128*data[15]+64*data[14]+32*data[13]+16*data[12]+8*data[11]+4*data[10]+2*data[9]+data[8];
+    byte3 = 128*data[23]+64*data[22]+32*data[21]+16*data[20]+8*data[19]+4*data[18]+2*data[17]+data[16];
+    byte4 = 128*data[31]+64*data[30]+32*data[29]+16*data[28]+8*data[27]+4*data[26]+2*data[25]+data[24];
+    int checksum = 128*data[39]+64*data[38]+32*data[37]+16*data[36]+8*data[35]+4*data[34]+2*data[33]+data[32];
+    if((byte1 + byte2 + byte3 + byte4) && 0xFF = checksum)
+    {
+        return(true);
+    }
+    else{
+        return(false);
+    }
 }
 
 
