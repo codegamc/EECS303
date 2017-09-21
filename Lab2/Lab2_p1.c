@@ -10,6 +10,7 @@ int byte1 = 0;
 int byte2 = 0;
 int byte3 = 0;
 int byte4 = 0;
+int e = 0;
 
 int main(void)
 {
