@@ -46,7 +46,7 @@ int main(void)
 				return(0);
 			}
 			timeElapsed = waitForLow();
-			append(timeElapsed, bitCount);//append checks how long it was high for and adds that data to a shift variable
+			append((int)timeElapsed, bitCount);//append checks how long it was high for and adds that data to a shift variable
 
 
 			bitCount++;
@@ -77,7 +77,7 @@ int addBytes(){
     byte3 = 128*data[23]+64*data[22]+32*data[21]+16*data[20]+8*data[19]+4*data[18]+2*data[17]+data[16];
     byte4 = 128*data[31]+64*data[30]+32*data[29]+16*data[28]+8*data[27]+4*data[26]+2*data[25]+data[24];
     int checksum = 128*data[39]+64*data[38]+32*data[37]+16*data[36]+8*data[35]+4*data[34]+2*data[33]+data[32];
-    if((byte1 + byte2 + byte3 + byte4) && 0xFF = checksum)
+    if((byte1 + byte2 + byte3 + byte4) && 0xFF == checksum)
     {
         return(1);
     }
