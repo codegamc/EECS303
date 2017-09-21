@@ -31,7 +31,7 @@ int main(void)
 		digitalWrite(dataPin, 1);
 		delayMicroseconds(30);
 		pinMode(dataPin, INPUT); 
-
+        printf("reached Ack part");
 		waitForLow();
     
 		timeElapsed = waitForHigh();
@@ -112,7 +112,7 @@ void append(int time, int index){
 }
 
 int waitForLow(){
-    printf("reached Ack part");
+    
 	clock_t start = clock(), diff;
 	while(digitalRead(dataPin) == 1){
 
