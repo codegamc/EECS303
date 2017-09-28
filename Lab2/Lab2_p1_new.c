@@ -3,7 +3,7 @@
 #include <time.h>
 
 const int dataPin = 23;
-int timeElapsed;
+int timeElapsed = 0;
 int error = 0;
 int data[40];
 int byte1 = 0;
@@ -27,15 +27,19 @@ int main(void)
 
 	//for(;;){
 		digitalWrite(dataPin, 0);
-		delayMicroseconds(501);
+		delayMicroseconds(18050);
 		digitalWrite(dataPin, 1);
-		delayMicroseconds(30);
+		delayMicroseconds(20);
+		
 		pinMode(dataPin, INPUT); 
-        	printf("reached Ack part\n");
-		//waitForLow();
+
+		waitForLow();
+        	
+		
+		//printf("reached Ack part\n");
     		
 		timeElapsed = waitForHigh();
-		printf("reached waiting for high, time was %d\n", timeElapsed);
+		//printf("reached waiting for high, time was %d\n", timeElapsed);
 		//make sure timeElapsed is ~80
     
 
@@ -53,26 +57,29 @@ int main(void)
 			printf("time low was %d\n", e);
 			//low before first bit, check it's roughly 50
 			if(e > 60 || e < 40){
-				return(0);
+				printf("Timing error, time was %d\n", e);				
+				return(1);
 			}
 			timeElapsed = waitForLow();
+			//printf("time high was %d\n", timeElapsed);
 			append((int)timeElapsed, bitCount);//append checks how long it was high for and adds that data to a shift variable
 
 
 			bitCount++;
 		}
+		printf("Through while loop");
 		if(bitCount < 40){
-			return(0);
+			return(1);
 		}
-		if(addBytes() == 1)
-        {
+		//if(addBytes() == 1)
+        //{
             printf("Temperature: %d C, Humidity: %d", byte1, byte3);
             
-        }
-        else{
-            printf("comparison to checksum failed");
+        //}
+        ///else{
+            //printf("comparison to checksum failed");
             
-        }
+        //}
 
 
 	//}
@@ -100,11 +107,11 @@ int addBytes(){
 
 
 void append(int time, int index){
-	if(time > 25 && time < 30)
+	if(time > 20 && time < 35)
 	{
 		data[index] = 1;
 	}
-	else if(time < 72 && time > 68)
+	else if(time < 80 && time > 60)
 	{
 		data[index] = 0;
 	}
@@ -114,35 +121,40 @@ void append(int time, int index){
 }
 
 int waitForChange(){
+		
 	clock_t start = clock(), diff;
 	int initialVal = digitalRead(dataPin);
 	while(digitalRead(dataPin) == initialVal){
 	
 	}
+	
 	diff = clock() - start;
+	//printf("waiting for change\n");
 	return((int)((double)diff * 1000000 / CLOCKS_PER_SEC));
 }
 
 
 
 int waitForLow(){
-    	printf("waiting for low\n");	
+    		
 	clock_t start = clock(), diff;
 	while(digitalRead(dataPin) == 1){
 
 	}
 	diff = clock() - start;
+	//printf("waiting for low\n");
 	return((int)((double)diff * 1000000 / CLOCKS_PER_SEC));
 
 }
 
 int waitForHigh(){
-	printf("waiting for high\n");	
+	
 	clock_t start = clock(), diff;
 	while(digitalRead(dataPin) == 0){
 
 	}
 	diff = clock() - start;
+	//printf("waiting for high\n");	
 	return((int)((double)diff * 1000000 / CLOCKS_PER_SEC));
 
 }
