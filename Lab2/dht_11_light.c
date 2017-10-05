@@ -9,9 +9,9 @@
 #include <time.h>
 
 #define MAXTIMINGS	85
-#define DHTPIN		7
+#define DHTPIN		4
 
-int led_pin = 31;
+int led_pin = 6;
 
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
@@ -112,7 +112,7 @@ void read_dht11_dat()
  
 int main()
 { 
-	if ( wiringPiSetup() == -1 )
+	if ( wiringPiSetupGpio() == -1 )
 		exit( 1 );
  
 	while ( 1 )
