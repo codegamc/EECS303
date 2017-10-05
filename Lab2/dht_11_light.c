@@ -30,7 +30,7 @@ void read_dht11_dat()
 	pinMode( DHTPIN, OUTPUT );
 	pinMode( led_pin, OUTPUT );
 	digitalWrite( DHTPIN, LOW );
-	digitalWrite( led_pin, HIGH );
+	digitalWrite( led_pin, LOW );
 	delay( 18 );
 	// pull it up for 40 microseconds
 	digitalWrite( DHTPIN, HIGH );
