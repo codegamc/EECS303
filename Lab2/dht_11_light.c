@@ -77,7 +77,7 @@ void read_dht11_dat()
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
  		//FILE *fp;
 		
-		if(dht11_dat[2] > 28)
+		if(dht11_dat[2] > 31)
 		{
 			//this means the temp is too high
 			digitalWrite(led_pin, HIGH);
