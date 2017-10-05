@@ -69,12 +69,12 @@ void read_dht11_dat()
  		count = count + 1;
  		f = dht11_dat[2] * 9. / 5. + 32;
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
- 		if(count == 1)
+ 		FILE *fp;
+ 		fp = fopen("data.txt", "w+");
+ 		if(fp == NULL)
  		{
- 			FILE *fp;
- 		
- 			fp = fopen("data.txt", "w+");
- 			fputs(("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long) time(NULL), dht11_dat[0], dht11_dat[2], f) , fp);
+ 			
+ 			fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long) time(NULL), dht11_dat[0], dht11_dat[2], f);
  			fclose(fp);
  		}
  	}
