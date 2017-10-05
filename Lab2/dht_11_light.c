@@ -85,7 +85,7 @@ void read_dht11_dat()
 		else
 		{
 			// this menas it cooled off
-			//digitalWrite(led_pin, LOW);
+			digitalWrite(led_pin, LOW);
 		}
  		
  		//if(fp == NULL)
