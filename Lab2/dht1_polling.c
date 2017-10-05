@@ -74,7 +74,7 @@ void read_dht11_dat()
  			FILE *fp;
  		
  			fp = fopen("data.txt", "w+");
- 			fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
+ 			fputs("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f, fp);
  			fclose(fp);
  		}
  	}
