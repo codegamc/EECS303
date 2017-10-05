@@ -12,6 +12,7 @@
 #define DHTPIN		7
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
+FILE *fp;
 
 void read_dht11_dat()
 {
@@ -62,21 +63,21 @@ void read_dht11_dat()
 	}
  
 
-
+	fp = fopen("data.txt", "w+");
 	int check = ((dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF);
  	if((j >= 40) && check)
  	{
  		count = count + 1;
  		f = dht11_dat[2] * 9. / 5. + 32;
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
- 		FILE *fp;
- 		fp = fopen("data.txt", "w+");
- 		if(fp == NULL)
- 		{
+ 		//FILE *fp;
+ 		
+ 		//if(fp == NULL)
+ 		//{
  			
  			fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long) time(NULL), dht11_dat[0], dht11_dat[2], f);
  			fclose(fp);
- 		}
+ 		//}
  	}
  	else
  	{
@@ -103,6 +104,6 @@ int main()
 		// wait 1sec to refresh
 		delay( 1000 ); 
 	}
- 
+ 	
 	return(0);
 }
