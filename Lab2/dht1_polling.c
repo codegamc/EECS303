@@ -69,13 +69,14 @@ void read_dht11_dat()
  	{
  		count = count + 1;
  		f = dht11_dat[2] * 9. / 5. + 32;
- 		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
+ 		
+ 		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", ctime(time(NULL)), dht11_dat[0], dht11_dat[2], f);
  		//FILE *fp;
  		
  		//if(fp == NULL)
  		//{
  			
- 			fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
+ 			fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", ctime(time(NULL)), dht11_dat[0], dht11_dat[2], f);
  			fclose(fp);
  		//}
  	}
