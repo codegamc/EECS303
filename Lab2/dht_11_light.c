@@ -11,7 +11,7 @@
 #define MAXTIMINGS	85
 #define DHTPIN		7
 
-int led_pin = 11;
+int led_pin = 29;
 
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
