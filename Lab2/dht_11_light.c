@@ -30,7 +30,7 @@ void read_dht11_dat()
 	pinMode( DHTPIN, OUTPUT );
 	pinMode( led_pin, OUTPUT );
 	digitalWrite( DHTPIN, LOW );
-	digitalWrite( led_pin, 1 );
+	digitalWrite( led_pin, 0 );
 	delay( 18 );
 	// pull it up for 40 microseconds
 	digitalWrite( DHTPIN, HIGH );
@@ -77,10 +77,11 @@ void read_dht11_dat()
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
  		//FILE *fp;
 		
-		digitalWrite(led_pin, 1);
+		
 		if(dht11_dat[2] > 31)
 		{
 			//this means the temp is too high
+			digitalWrite(led_pin, 1);
 			
 		}
 		else
