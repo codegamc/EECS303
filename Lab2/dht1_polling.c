@@ -8,7 +8,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAXTIMINGS	1
+#define MAXTIMINGS	85
 #define DHTPIN		7
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 
@@ -90,12 +90,12 @@ int main()
 	if ( wiringPiSetup() == -1 )
 		exit( 1 );
  
-	while ( 1 )
-	{
+	//while ( 1 )
+	//{
 		read_dht11_dat();
 		// wait 1sec to refresh
 		delay( 1000 ); 
-	}
+	//}
  
 	return(0);
 }
