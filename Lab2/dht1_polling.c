@@ -8,7 +8,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAXTIMINGS	85
+#define MAXTIMINGS	1
 #define DHTPIN		7
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 
@@ -60,11 +60,16 @@ void read_dht11_dat()
 		}
 	}
  
+
+
 	int check = ((dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF);
  	if((j >= 40) && check)
  	{
  		f = dht11_dat[2] * 9. / 5. + 32;
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
+ 		FILE *fp;
+ 		fp = fopen("data.txt", "w");
+ 		fprintf(fp, "Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f)
  	}
  	else
  	{
