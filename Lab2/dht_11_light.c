@@ -1,5 +1,5 @@
 // gcc -Os dht1_polling.c -lwiringPi -o dht1_polling
-
+// gcc -Os dht_11_light.c -lwiringPi -o dht_11_light
 #include <wiringPi.h>
  
 #include <stdio.h>
