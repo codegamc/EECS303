@@ -80,12 +80,12 @@ void read_dht11_dat()
 		if(dht11_dat[2] > 28)
 		{
 			//this means the temp is too high
-			DigitalWrite(led_pin, HIGH);
+			digitalWrite(led_pin, HIGH);
 		}
 		else
 		{
 			// this menas it cooled off
-			DigitalWrite(led_pin, LOW);
+			digitalWrite(led_pin, LOW);
 		}
  		
  		//if(fp == NULL)
