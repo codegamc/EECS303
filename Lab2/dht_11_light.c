@@ -11,7 +11,7 @@
 #define MAXTIMINGS	85
 #define DHTPIN		7
 
-int led_pin = 29;
+int led_pin = 31;
 
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
@@ -30,7 +30,7 @@ void read_dht11_dat()
 	pinMode( DHTPIN, OUTPUT );
 	pinMode( led_pin, OUTPUT );
 	digitalWrite( DHTPIN, LOW );
-	digitalWrite( led_pin, 0 );
+	digitalWrite( led_pin, 1 );
 	delay( 18 );
 	// pull it up for 40 microseconds
 	digitalWrite( DHTPIN, HIGH );
