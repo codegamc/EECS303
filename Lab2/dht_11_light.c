@@ -10,6 +10,7 @@
 
 #define MAXTIMINGS	85
 #define DHTPIN		7
+#define led_pin 	11
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
 FILE *fp;
@@ -25,7 +26,9 @@ void read_dht11_dat()
  
 	// pull pin down for 18 milliseconds
 	pinMode( DHTPIN, OUTPUT );
+	pinMode( led_pin, OUTPUT );
 	digitalWrite( DHTPIN, LOW );
+	digitalWrite( led_pin, LOW );
 	delay( 18 );
 	// pull it up for 40 microseconds
 	digitalWrite( DHTPIN, HIGH );
@@ -71,6 +74,17 @@ void read_dht11_dat()
  		f = dht11_dat[2] * 9. / 5. + 32;
  		printf("Time: %lld humidity = %d %% temp = %d C (%f F)\n", (long long) time(NULL), dht11_dat[0], dht11_dat[2], f);
  		//FILE *fp;
+		
+		if(dht11_dat[2] > 28)
+		{
+			//this means the temp is too high
+			DigitalWrite(led_pin, HIGH);
+		}
+		else
+		{
+			// this menas it cooled off
+			DigitalWrite(led_pin, LOW);
+		}
  		
  		//if(fp == NULL)
  		//{
