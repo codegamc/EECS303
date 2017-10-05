@@ -60,7 +60,7 @@ void read_dht11_dat()
 		}
 	}
  
-	int check = (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF);
+	int check = ((dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF);
  	if((j >= 40) && check)
  	{
  		f = dht11_dat[2] * 9. / 5. + 32;
