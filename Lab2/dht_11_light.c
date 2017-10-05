@@ -80,7 +80,7 @@ void read_dht11_dat()
 		if(dht11_dat[2] > 31)
 		{
 			//this means the temp is too high
-			digitalWrite(led_pin, HIGH);
+			//xdigitalWrite(led_pin, HIGH);
 		}
 		else
 		{
