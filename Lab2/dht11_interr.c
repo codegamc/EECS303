@@ -178,7 +178,7 @@ void sensorReadISR()
 			
 			// Get the time when this edge occurred
 
-			int current_time = micros();
+			unsigned int current_time = micros();
 			// Get the amount of uS the bit-determining pulse was high.
 			// Subtract 50us, the pre-bit delay.
 			
@@ -193,14 +193,14 @@ void sensorReadISR()
 			}
 
 			
-			int prevBitHighTime = current_time - microsPreviousRisingEdge - 50;
+			unsigned int prevBitHighTime = current_time - microsPreviousRisingEdge - 50;
 			microsPreviousRisingEdge = current_time;
 			// Distinguish the bit using prevBitHighTime
 			// Don't forget there might be error if the time is too large.
 			
 			// Account for the this bit's high time.
 			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;
-			if(prevBitHighTime >40)
+			if(prevBitHighTime > 40)
 			{
 				bitsRcvd[currentReadingBitIdx - 1] = 1;
 			}	
@@ -290,6 +290,7 @@ int generateChecksum(int * bits_rcvd)
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
 	int checksum = (bits_rcvd[0] + bits_rcvd[1] + bits_rcvd[2] + bits_rcvd[3]) & 0xFF;
+	printf("%u", checksum);
 
 	return checksum;
 }
