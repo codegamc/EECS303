@@ -291,7 +291,7 @@ uint8_t generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, 
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
-	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
+	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec) & 0xFF;
 	//checksum &= 0xFF;
 
 	return checksum;
