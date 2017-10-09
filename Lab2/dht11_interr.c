@@ -325,7 +325,7 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	// Check checksum
 	uint8_t checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
 
-	
+	printf("Generated checksum: %u, read Checksum: %u\n", checksum_generated, checksum_read);
 
 
 
