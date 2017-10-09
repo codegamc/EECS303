@@ -270,7 +270,8 @@ void setupGpio()
 // Releases the GPIO reservation.
 void releaseGpio()
 {
-
+	system("gpio-admin export 7");
+	system("gpio-admin unexport 7");
 }
 
 /*
