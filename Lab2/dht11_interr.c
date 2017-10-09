@@ -10,6 +10,16 @@
 
 #include "wiringPi.h"
 
+typedef enum State
+{
+	INIT_PULL_LINE_LOW,
+	INPUT_JUST_ENABLED,
+	HIGH_ACK,
+	BIT_READ_RISING,
+	READ_COMPLETE,
+	ERROR_STATE
+} State;
+
 static volatile State currentState = READ_COMPLETE;
 static volatile int currentReadingBitIdx = 0;
 static volatile int microsPreviousRisingEdge = 0;
@@ -42,15 +52,7 @@ bool readSuccessful = false;
 	int bitNum = 0;
 #endif
 
-typedef enum State
-{
-	INIT_PULL_LINE_LOW,
-	INPUT_JUST_ENABLED,
-	HIGH_ACK,
-	BIT_READ_RISING,
-	READ_COMPLETE,
-	ERROR_STATE
-} State;
+
 
 int main()
 {
