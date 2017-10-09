@@ -199,7 +199,14 @@ void sensorReadISR()
 			// Don't forget there might be error if the time is too large.
 			
 			// Account for the this bit's high time.
-			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;	
+			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;
+			if(prevBitHighTime >40)
+			{
+				bitsRcvd[currentReadingBitIdx - 1] = 1;
+			}	
+			else{
+				bitsRcvd[currentReadingBitIdx - 1] = 0;
+			}
 				
 			++currentReadingBitIdx;
 			
