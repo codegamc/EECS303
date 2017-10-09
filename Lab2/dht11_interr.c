@@ -290,7 +290,7 @@ int generateChecksum(int * bits_rcvd)
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
 	int checksum = (bits_rcvd[0] + bits_rcvd[1] + bits_rcvd[2] + bits_rcvd[3]) & 0xFF;
-	printf("%u", checksum);
+	printf("checksum: %u\n", checksum);
 
 	return checksum;
 }
