@@ -178,7 +178,7 @@ void sensorReadISR()
 			
 			// Get the time when this edge occurred
 
-			
+			int current_time = micros();
 			// Get the amount of uS the bit-determining pulse was high.
 			// Subtract 50us, the pre-bit delay.
 			
@@ -187,10 +187,14 @@ void sensorReadISR()
 			// to determine how long this cycle was high.
 			if (currentReadingBitIdx == 0)
 			{
+				microsPreviousRisingEdge = current_time;
 				++currentReadingBitIdx;
 				break;
 			}
+
 			
+			int prevBitHighTime = current_time - microsPreviousRisingEdge - 50;
+			microsPreviousRisingEdge = current_time;
 			// Distinguish the bit using prevBitHighTime
 			// Don't forget there might be error if the time is too large.
 			
@@ -208,6 +212,7 @@ void sensorReadISR()
 			if (currentReadingBitIdx >= 40)
 			{
 				currentState = READ_COMPLETE;
+				delayMicroseconds(40);
 				
 				if (digitalRead(SENSOR_PIN_NUM) == LOW)
 				{
