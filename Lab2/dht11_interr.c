@@ -200,7 +200,7 @@ void sensorReadISR()
 			
 			// Account for the this bit's high time.
 			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;
-			if(prevBitHighTime > 35)
+			if(prevBitHighTime > 40)
 			{
 				bitsRcvd[currentReadingBitIdx - 1] = 1;
 				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
@@ -221,7 +221,7 @@ void sensorReadISR()
 			if (currentReadingBitIdx >= 40)
 			{
 				currentState = READ_COMPLETE;
-				delayMicroseconds(35);
+				delayMicroseconds(40);
 				
 				if (digitalRead(SENSOR_PIN_NUM) == LOW)
 				{
