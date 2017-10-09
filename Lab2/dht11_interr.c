@@ -306,9 +306,14 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	}
 	
 	// Check checksum
-	int check = generateChecksum(bitsRcvd);
+	int checksum_generated = generateChecksum(bitsRcvd);
+	int temp_int = bitsRcvd[0];
+	int temp_dec = bitsRcvd[1];
+	int humid_int = bitsRcvd[2];
+	int humid_dec = bitsRcvd[3];
+	int checksum_read = bitsRcvd[4];
 
-	if(check == bitsRcvd[4])
+	if(checksum_generated == checksum_read)
 	{
 		// Print the results
 		printf("Temp: %d.%d\n", temp_int, temp_dec);
