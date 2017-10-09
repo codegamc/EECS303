@@ -66,7 +66,7 @@ void writeResultsToFile(int temp_int, int temp_dec,
 						const char * sensorInteractionMode,
 						const char * timeAsString,
 						const char * errorString);
-int generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec);
+unsigned int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec);
 int arrAndOffsetToInt(int * bits_rcvd, int offset);
 //End function declerations
 
@@ -287,12 +287,12 @@ int arrAndOffsetToInt(int * bits_rcvd, int offset)
 /*
  * Generates a checksum from the humidity and temp readings.
  */
-int generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec)
+unsigned int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec)
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
-	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
-	//checksum &= 0xFF;
+	unsigned int checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
+	checksum &= 0xFF;
 
 	return checksum;
 }
@@ -322,12 +322,10 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	uint8_t checksum_read = arrAndOffsetToInt(bitsRcvd, 32);
 
 
-
 	// Check checksum
-	int checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
+	unsigned int checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
 	
 
-	printf("generated checksum: %d, recieved checksum: %u\n" checksum_generated, checksum_read);
 
 
 
