@@ -325,25 +325,24 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	// Check checksum
 	uint8_t checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
 
-	printf("Generated checksum: %u, read Checksum: %u\n", checksum_generated, checksum_read);
 	
 
 
 
 
-	if(checksum_generated == checksum_read)
-	{
+	//if(checksum_generated == checksum_read)
+	//{
 		// Print the results
 		printf("Temp: %d.%d\n", temp_int, temp_dec);
 		printf("Humidity: %d.%d\n", humid_int, humid_dec);
 		
 		// Write the results to a file
 		writeResultsToFile(temp_int, temp_dec, humid_int, humid_dec, checksum_read, checksum_generated, sensorInteractionMode, timeAsString, errorString);
-	}
-	else
-	{
-		printf("Checksum failed");
-	}
+	//}
+	//else
+	//{
+	//	printf("Checksum failed");
+	//}
 }
 
 /*
