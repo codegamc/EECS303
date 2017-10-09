@@ -203,11 +203,11 @@ void sensorReadISR()
 			if(prevBitHighTime > 40 && prevBitHighTime < 80)
 			{
 				bitsRcvd[currentReadingBitIdx - 1] = 1;
-				printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
+				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
 			}	
 			else if(prevBitHighTime < 40){
 				bitsRcvd[currentReadingBitIdx - 1] = 0;
-				printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
+				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
 			}
 			else
 			{
@@ -318,6 +318,17 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	{
 		printf("Time of reading: %s", timeAsString);
 	}
+
+	int i;
+	for(i = 0; i < 40; i = i + 1)
+	{
+		printf("bit #%d is :%d", i, bitsRcvd[i]);
+		if((j+1)/8 == 0)
+		{
+			printf("\n");
+		}
+	}
+	printf("\n");
 	
 	uint8_t temp_int = arrAndOffsetToInt(bitsRcvd, 16);
 	uint8_t temp_dec = arrAndOffsetToInt(bitsRcvd, 24);
