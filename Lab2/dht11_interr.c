@@ -200,14 +200,18 @@ void sensorReadISR()
 			
 			// Account for the this bit's high time.
 			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;
-			if(prevBitHighTime > 40)
+			if(prevBitHighTime > 40 && prevBitHighTime < 80)
 			{
 				bitsRcvd[currentReadingBitIdx - 1] = 1;
 				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
 			}	
-			else{
+			else if(prevBitHighTime < 40){
 				bitsRcvd[currentReadingBitIdx - 1] = 0;
 				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
+			}
+			else
+			{
+					currentState = ERROR_STATE;
 			}
 				
 			++currentReadingBitIdx;
