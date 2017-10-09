@@ -287,12 +287,12 @@ int arrAndOffsetToInt(int * bits_rcvd, int offset)
 /*
  * Generates a checksum from the humidity and temp readings.
  */
-unsigned int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec)
+uint8_t generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec)
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
-	unsigned int checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
-	checksum &= 0xFF;
+	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
+	//checksum &= 0xFF;
 
 	return checksum;
 }
@@ -323,7 +323,9 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 
 
 	// Check checksum
-	unsigned int checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
+	uint8_t checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
+
+	printf("Generated checksum: %u, read Checksum: %u\n", checksum_generated, checksum_read);
 	
 
 
