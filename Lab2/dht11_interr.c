@@ -322,10 +322,12 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	uint8_t checksum_read = arrAndOffsetToInt(bitsRcvd, 32);
 
 
+
 	// Check checksum
 	int checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
 	
 
+	printf("generated checksum: %u, recieved checksum: %u\n" checksum_generated, checksum_read);
 
 
 
