@@ -291,7 +291,8 @@ int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int 
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
-	int checksum = (temp_int + temp_dec + humid_int + humid_dec) & 0xFF;
+	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec);// & 0xFF;
+	checksum &= 0xFF;
 
 	return checksum;
 }
