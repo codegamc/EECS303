@@ -323,10 +323,6 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 	for(i = 0; i < 40; i = i + 1)
 	{
 		printf("bit #%d is :%d", i, bitsRcvd[i]);
-		if((i+1)/8 == 0)
-		{
-			printf("\n");
-		}
 	}
 	printf("\n");
 	
