@@ -52,7 +52,23 @@ bool readSuccessful = false;
 	int bitNum = 0;
 #endif
 
-
+//Function Declerations
+void setupGpio();
+void sensorReadISR();
+void initiateRead();
+void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char * sensorInteractionMode);
+void releaseGpio();
+int piHiPri (const int pri);
+char * getTimeAsString();
+void writeResultsToFile(int temp_int, int temp_dec, 
+						int humid_int, int humid_dec,
+						int checksumRead, int checksumGen,
+						const char * sensorInteractionMode,
+						const char * timeAsString,
+						const char * errorString);
+int generateChecksum(int * bits_rcvd);
+int arrAndOffsetToInt(int * bits_rcvd, int offset);
+//End function declerations
 
 int main()
 {
