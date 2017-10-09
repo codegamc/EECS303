@@ -66,7 +66,7 @@ void writeResultsToFile(int temp_int, int temp_dec,
 						const char * sensorInteractionMode,
 						const char * timeAsString,
 						const char * errorString);
-unsigned int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec);
+uint8_t generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec);
 int arrAndOffsetToInt(int * bits_rcvd, int offset);
 //End function declerations
 
