@@ -66,7 +66,7 @@ void writeResultsToFile(int temp_int, int temp_dec,
 						const char * sensorInteractionMode,
 						const char * timeAsString,
 						const char * errorString);
-int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec);
+int generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec);
 int arrAndOffsetToInt(int * bits_rcvd, int offset);
 //End function declerations
 
@@ -287,7 +287,7 @@ int arrAndOffsetToInt(int * bits_rcvd, int offset)
 /*
  * Generates a checksum from the humidity and temp readings.
  */
-int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec)
+int generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec)
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
@@ -315,11 +315,11 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 		printf("Time of reading: %s", timeAsString);
 	}
 	
-	unsigned int temp_int = bitsRcvd[23]*128 + bitsRcvd[22]*64 + bitsRcvd[21]*32 + bitsRcvd[20]*16 + bitsRcvd[19]*8 + bitsRcvd[18]*4 + bitsRcvd[17]*2 + bitsRcvd[16]*1;
-	unsigned int temp_dec = bitsRcvd[31]*128 + bitsRcvd[30]*64 + bitsRcvd[29]*32 + bitsRcvd[28]*16 + bitsRcvd[27]*8 + bitsRcvd[26]*4 + bitsRcvd[25]*2 + bitsRcvd[24]*1;
-	unsigned int humid_int = bitsRcvd[7]*128 + bitsRcvd[6]*64 + bitsRcvd[5]*32 + bitsRcvd[4]*16 + bitsRcvd[3]*8 + bitsRcvd[2]*4 + bitsRcvd[1]*2 + bitsRcvd[0]*1;
-	unsigned int humid_dec = bitsRcvd[15]*128 + bitsRcvd[14]*64 + bitsRcvd[13]*32 + bitsRcvd[12]*16 + bitsRcvd[11]*8 + bitsRcvd[10]*4 + bitsRcvd[9]*2 + bitsRcvd[8]*1;
-	unsigned int checksum_read = bitsRcvd[39]*128 + bitsRcvd[38]*64 + bitsRcvd[37]*32 + bitsRcvd[36]*16 + bitsRcvd[35]*8 + bitsRcvd[34]*4 + bitsRcvd[33]*2 + bitsRcvd[32]*1;
+	uint8_t temp_int = arrAndOffsetToInt(bitsRcvd, 16);
+	uint8_t temp_dec = arrAndOffsetToInt(bitsRcvd, 24);
+	uint8_t humid_int = arrAndOffsetToInt(bitsRcvd, 0);
+	uint8_t humid_dec = arrAndOffsetToInt(bitsRcvd, 8);
+	uint8_t checksum_read = arrAndOffsetToInt(bitsRcvd, 32);
 
 
 	// Check checksum
