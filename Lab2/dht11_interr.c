@@ -203,11 +203,11 @@ void sensorReadISR()
 			if(prevBitHighTime > 40 && prevBitHighTime < 80)
 			{
 				bitsRcvd[currentReadingBitIdx - 1] = 1;
-				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
+				printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
 			}	
 			else if(prevBitHighTime < 40){
 				bitsRcvd[currentReadingBitIdx - 1] = 0;
-				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
+				printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
 			}
 			else
 			{
