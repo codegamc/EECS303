@@ -322,7 +322,7 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 
 
 	// Check checksum
-	int checksum_generated = generateChecksum({temp_int, temp_dec, humid_int, humid_dec});
+	int checksum_generated = generateChecksum(&{temp_int, temp_dec, humid_int, humid_dec});
 	
 
 
