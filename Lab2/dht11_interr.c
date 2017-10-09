@@ -314,13 +314,19 @@ void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char
 		printf("Time of reading: %s", timeAsString);
 	}
 	
+	int temp_int = bitsRcvd[23]*128 + bitsRcvd[22]*64 + bitsRcvd[21]*32 + bitsRcvd[20]*16 + bitsRcvd[19]*8 + bitsRcvd[18]*4 + bitsRcvd[17]*2 + bitsRcvd[16]*1;
+	int temp_dec = bitsRcvd[31]*128 + bitsRcvd[30]*64 + bitsRcvd[29]*32 + bitsRcvd[28]*16 + bitsRcvd[27]*8 + bitsRcvd[26]*4 + bitsRcvd[25]*2 + bitsRcvd[24]*1;
+	int humid_int = bitsRcvd[7]*128 + bitsRcvd[6]*64 + bitsRcvd[5]*32 + bitsRcvd[4]*16 + bitsRcvd[3]*8 + bitsRcvd[2]*4 + bitsRcvd[1]*2 + bitsRcvd[0]*1;
+	int humid_dec = bitsRcvd[15]*128 + bitsRcvd[14]*64 + bitsRcvd[13]*32 + bitsRcvd[12]*16 + bitsRcvd[11]*8 + bitsRcvd[10]*4 + bitsRcvd[9]*2 + bitsRcvd[8]*1;
+	int checksum_read = bitsRcvd[39]*128 + bitsRcvd[38]*64 + bitsRcvd[37]*32 + bitsRcvd[36]*16 + bitsRcvd[35]*8 + bitsRcvd[34]*4 + bitsRcvd[33]*2 + bitsRcvd[32]*1;
+
+
 	// Check checksum
-	int checksum_generated = generateChecksum(bitsRcvd);
-	int temp_int = bitsRcvd[0];
-	int temp_dec = bitsRcvd[1];
-	int humid_int = bitsRcvd[2];
-	int humid_dec = bitsRcvd[3];
-	int checksum_read = bitsRcvd[4];
+	int checksum_generated = generateChecksum({temp_int, temp_dec, humid_int, humid_dec});
+	
+
+
+
 
 	//if(checksum_generated == checksum_read)
 	//{
