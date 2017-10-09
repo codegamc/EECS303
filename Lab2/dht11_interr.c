@@ -287,7 +287,7 @@ int arrAndOffsetToInt(int * bits_rcvd, int offset)
 /*
  * Generates a checksum from the humidity and temp readings.
  */
-int generateChecksum(int * temp_int, int * temp_dec, int * humid_int, int * humid_dec)
+int generateChecksum(unsigned int temp_int, unsigned int temp_dec, unsigned int humid_int, unsigned int humid_dec)
 {
 	// Use uint8_t variables to ensure that the result of each addition
 	// is only eight bits.
