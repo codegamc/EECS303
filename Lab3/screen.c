@@ -156,7 +156,7 @@ char * read_dht11_dat()
  		
 
  		//char ret[100];
- 		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
+ 		sprintf(ret, "Humidity = %d %% temp = %d C (%f F)\n", dht11_dat[0], dht11_dat[2], f);
  		// = "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f;
  		return ret;
  		//printf("Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
@@ -276,7 +276,7 @@ int main(int argc, const char *argv[])
 		setText(read_dht11_dat());
 		
 		// Delay a little bit.
-		delay(100);
+		delay(1000);
 	}
 	
 	printf("Program ended with exit value 0.\n");
