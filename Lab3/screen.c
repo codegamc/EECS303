@@ -167,7 +167,7 @@ int main(int argc, const char *argv[])
 		
 		// Set Backlight color.
 		setBGColor(r, g, b);
-		setText("Hello:\n      World!");
+		
 		
 		// Delay a little bit.
 		delay(10);
