@@ -151,8 +151,8 @@ char * read_dht11_dat()
  	{
  		count = count + 1;
  		f = dht11_dat[2] * 9. / 5. + 32;
- 		time_t current_time;
- 		current_time = time(NULL);
+ 		//time_t current_time;
+ 		//current_time = time(NULL);
  		
 
  		//char ret[100];
