@@ -36,6 +36,7 @@ void textCommand(unsigned char cmd)
 // Set text of diaplay.
 int setText(const char *string)
 {
+	printf("setting text, %s", string);
 	// Clear display.
 	textCommand(0x01);
 	
