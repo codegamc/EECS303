@@ -155,7 +155,7 @@ char * read_dht11_dat()
  		
 
  		char ret[100];
- 		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), &dht11_dat[0], &dht11_dat[2], f);
+ 		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
  		// = "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f;
  		return ret;
  		//printf("Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
