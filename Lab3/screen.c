@@ -18,6 +18,7 @@ int textDisplay;
 #define MAXTIMINGS	85
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
+char ret[100];
 //int sensor_pin = 7;
 
 // Set diaplay background color.
@@ -154,7 +155,7 @@ char * read_dht11_dat()
  		current_time = time(NULL);
  		
 
- 		char ret[100];
+ 		//char ret[100];
  		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
  		// = "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f;
  		return ret;
@@ -217,7 +218,7 @@ int main(int argc, const char *argv[])
 	// Display text.
 	setText("Hello:\n      World!");
 	
-	int colorCount = 0;
+	//int colorCount = 0;
 	
 	unsigned char r = (unsigned char)255;
 	unsigned char g = (unsigned char)0;
