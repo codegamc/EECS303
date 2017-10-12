@@ -9,6 +9,8 @@
 // I2C device handles.
 int backLight;
 int textDisplay;
+#define DHTPIN 	7
+//int sensor_pin = 7;
 
 // Set diaplay background color.
 // Input: color RGB components. Range 0~255, inclusive.
@@ -36,7 +38,7 @@ void textCommand(unsigned char cmd)
 // Set text of diaplay.
 int setText(const char *string)
 {
-	printf("setting text, %s", string);
+	//printf("setting text, %s", string);
 	// Clear display.
 	textCommand(0x01);
 	
@@ -84,6 +86,101 @@ void sigIntHandler(int signal)
 	printf("\nProgram ended with exit value -2.\n");
 	exit(-2);
 }
+
+char * read_dht11_dat()
+{
+	uint8_t laststate	= HIGH;
+	uint8_t counter		= 0;
+	uint8_t j		= 0, i;
+	float	f; 						// fahrenheit
+ 
+	dht11_dat[0] = dht11_dat[1] = dht11_dat[2] = dht11_dat[3] = dht11_dat[4] = 0;
+ 
+	// pull pin down for 18 milliseconds
+	pinMode( DHTPIN, OUTPUT );
+	digitalWrite( DHTPIN, LOW );
+	delay( 18 );
+	// pull it up for 40 microseconds
+	digitalWrite( DHTPIN, HIGH );
+	delayMicroseconds( 40 );
+	// prepare to read the pin
+	pinMode( DHTPIN, INPUT );
+ 
+	// detect change and read data
+	for ( i = 0; i < MAXTIMINGS; i++ )
+	{
+		counter = 0;
+		while ( digitalRead( DHTPIN ) == laststate )
+		{
+			counter++;
+			delayMicroseconds( 1 );
+			if ( counter == 255 )
+			{
+				break;
+			}
+		}
+		laststate = digitalRead( DHTPIN );
+ 
+		if ( counter == 255 )
+			break;
+ 
+		// ignore first 3 transitions
+		if ( (i >= 4) && (i % 2 == 0) )
+		{
+			// shove each bit into the storage bytes
+			dht11_dat[j / 8] <<= 1;
+			if ( counter > 16 )
+				dht11_dat[j / 8] |= 1;
+			j++;
+		}
+	}
+ 
+
+	//fp = fopen("data.txt", "w+");
+	int check = ((dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF);
+ 	if((j >= 40) && check)
+ 	{
+ 		count = count + 1;
+ 		f = dht11_dat[2] * 9. / 5. + 32;
+ 		time_t current_time;
+ 		current_time = time(NULL);
+ 		
+
+ 		char * ret;
+ 		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
+ 		// = "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f;
+ 		return ret;
+ 		//printf("Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
+ 		//FILE *fp;
+ 		
+ 		//if(fp == NULL)
+ 		//{
+ 			
+ 			//fprintf(fp, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
+ 			//fclose(fp);
+ 		//}
+ 	}
+ 	else
+ 	{
+ 		return "checksum failed";
+ 		//printf("Checksum failed\n");
+ 	}
+	// verify checksum with reading data.
+
+	//print humidity and temperature
+
+	//print time
+
+	//write humidity and temperature into file
+		
+}
+
+
+
+
+
+
+
 
 int main(int argc, const char *argv[])
 {
@@ -167,10 +264,10 @@ int main(int argc, const char *argv[])
 		
 		// Set Backlight color.
 		setBGColor(r, g, b);
-		
+		setText(read_dht11_dat());
 		
 		// Delay a little bit.
-		delay(10);
+		delay(100);
 	}
 	
 	printf("Program ended with exit value 0.\n");
