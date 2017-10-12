@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <signal.h>
+#include <stdint.h>
+#include <string.h>
+#include <time.h>
 
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
@@ -11,7 +14,8 @@
 // I2C device handles.
 int backLight;
 int textDisplay;
-#define DHTPIN 	7
+#define DHTPIN 		7
+#define MAXTIMINGS	85
 //int sensor_pin = 7;
 
 // Set diaplay background color.
