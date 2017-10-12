@@ -16,6 +16,8 @@ int backLight;
 int textDisplay;
 #define DHTPIN 		7
 #define MAXTIMINGS	85
+int dht11_dat[5] = { 0, 0, 0, 0, 0 };
+int count = 0;
 //int sensor_pin = 7;
 
 // Set diaplay background color.
