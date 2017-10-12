@@ -44,7 +44,7 @@ void textCommand(unsigned char cmd)
 }
 
 // Set text of diaplay.
-int setText(const char *string)
+void setText(const char *string)
 {
 	//printf("setting text, %s", string);
 	// Clear display.
@@ -154,7 +154,7 @@ char * read_dht11_dat()
  		current_time = time(NULL);
  		
 
- 		char * ret;
+ 		char * ret[100];
  		sprintf(ret, "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f);
  		// = "Time: %s humidity = %d %% temp = %d C (%f F)\n", ctime(&current_time), dht11_dat[0], dht11_dat[2], f;
  		return ret;
