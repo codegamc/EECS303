@@ -100,7 +100,7 @@ void read_dht11_dat()
  
 int main()
 { 
-	if ( wiringPiSetup() == -1 )
+	if ( wiringPiSetupGpio() == -1 )
 		exit( 1 );
  
 	while ( 1 )

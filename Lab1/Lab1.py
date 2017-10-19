@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
-LEDPin = 16
+LEDPin = 31
 
 def setup():
 	GPIO.setmode(GPIO.BOARD)

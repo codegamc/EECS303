@@ -1,0 +1,1290 @@
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:46:32 2017
+Temp: 24.0
+Humidity: 40.1
+Checksum read: 65
+Checksum calc'd: 65
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:47:08 2017
+Temp: 24.0
+Humidity: 40.1
+Checksum read: 65
+Checksum calc'd: 65
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:47:10 2017
+Temp: 24.0
+Humidity: 41.0
+Checksum read: 65
+Checksum calc'd: 65
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:47:14 2017
+Temp: 24.1
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 65
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:54:17 2017
+Temp: 24.0
+Humidity: 42.1
+Checksum read: 67
+Checksum calc'd: 67
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:57:51 2017
+Temp: 24.0
+Humidity: 41.0
+Checksum read: 65
+Checksum calc'd: 65
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:29 2017
+Temp: 24.32
+Humidity: 40.28
+Checksum read: 65
+Checksum calc'd: 124
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:30 2017
+Temp: 24.24
+Humidity: 42.0
+Checksum read: 67
+Checksum calc'd: 90
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:31 2017
+Temp: 24.0
+Humidity: 169.0
+Checksum read: 96
+Checksum calc'd: 193
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:32 2017
+Temp: 152.0
+Humidity: 41.3
+Checksum read: 64
+Checksum calc'd: 196
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:33 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:34 2017
+Temp: 24.4
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 68
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:35 2017
+Temp: 23.0
+Humidity: 41.128
+Checksum read: 62
+Checksum calc'd: 192
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:36 2017
+Temp: 152.64
+Humidity: 40.6
+Checksum read: 65
+Checksum calc'd: 6
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:37 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 193
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:38 2017
+Temp: 176.0
+Humidity: 248.9
+Checksum read: 131
+Checksum calc'd: 177
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:40 2017
+Temp: 62.33
+Humidity: 40.88
+Checksum read: 255
+Checksum calc'd: 223
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:41 2017
+Temp: 24.32
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:42 2017
+Temp: 24.5
+Humidity: 47.0
+Checksum read: 255
+Checksum calc'd: 76
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:43 2017
+Temp: 96.129
+Humidity: 43.144
+Checksum read: 255
+Checksum calc'd: 156
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:44 2017
+Temp: 168.16
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 224
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:45 2017
+Temp: 24.0
+Humidity: 40.96
+Checksum read: 97
+Checksum calc'd: 160
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:46 2017
+Temp: 24.0
+Humidity: 72.0
+Checksum read: 65
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:47 2017
+Temp: 56.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 16:59:48 2017
+Temp: 26.64
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 130
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:00:57 2017
+Temp: 16.0
+Humidity: 58.0
+Checksum read: 67
+Checksum calc'd: 74
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:00:58 2017
+Temp: 48.0
+Humidity: 41.64
+Checksum read: 131
+Checksum calc'd: 153
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:00:59 2017
+Temp: 25.0
+Humidity: 41.0
+Checksum read: 64
+Checksum calc'd: 66
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:00 2017
+Temp: 24.0
+Humidity: 41.0
+Checksum read: 64
+Checksum calc'd: 65
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:01 2017
+Temp: 24.0
+Humidity: 41.32
+Checksum read: 64
+Checksum calc'd: 97
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:02 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:03 2017
+Temp: 26.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 66
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:04 2017
+Temp: 24.0
+Humidity: 104.0
+Checksum read: 73
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:05 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:06 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:07 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:08 2017
+Temp: 24.0
+Humidity: 40.32
+Checksum read: 65
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:09 2017
+Temp: 24.0
+Humidity: 40.3
+Checksum read: 81
+Checksum calc'd: 67
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:10 2017
+Temp: 48.97
+Humidity: 80.0
+Checksum read: 255
+Checksum calc'd: 225
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:11 2017
+Temp: 40.0
+Humidity: 41.0
+Checksum read: 81
+Checksum calc'd: 81
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:12 2017
+Temp: 24.0
+Humidity: 41.64
+Checksum read: 65
+Checksum calc'd: 129
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:13 2017
+Temp: 56.2
+Humidity: 80.0
+Checksum read: 193
+Checksum calc'd: 138
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:14 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:15 2017
+Temp: 48.17
+Humidity: 46.0
+Checksum read: 193
+Checksum calc'd: 111
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:01:16 2017
+Temp: 24.0
+Humidity: 40.48
+Checksum read: 65
+Checksum calc'd: 112
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:02:59 2017
+Temp: 24.4
+Humidity: 104.0
+Checksum read: 65
+Checksum calc'd: 132
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:00 2017
+Temp: 24.2
+Humidity: 43.0
+Checksum read: 66
+Checksum calc'd: 69
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:02 2017
+Temp: 31.32
+Humidity: 41.9
+Checksum read: 255
+Checksum calc'd: 113
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:03 2017
+Temp: 248.1
+Humidity: 41.0
+Checksum read: 75
+Checksum calc'd: 34
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:04 2017
+Temp: 24.4
+Humidity: 41.0
+Checksum read: 80
+Checksum calc'd: 69
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:05 2017
+Temp: 28.0
+Humidity: 41.0
+Checksum read: 64
+Checksum calc'd: 69
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:06 2017
+Temp: 31.0
+Humidity: 40.3
+Checksum read: 64
+Checksum calc'd: 74
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:07 2017
+Temp: 24.1
+Humidity: 47.0
+Checksum read: 67
+Checksum calc'd: 72
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:08 2017
+Temp: 24.0
+Humidity: 168.112
+Checksum read: 79
+Checksum calc'd: 48
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:09 2017
+Temp: 24.0
+Humidity: 40.3
+Checksum read: 76
+Checksum calc'd: 67
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:10 2017
+Temp: 25.0
+Humidity: 40.0
+Checksum read: 64
+Checksum calc'd: 65
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:11 2017
+Temp: 48.0
+Humidity: 45.128
+Checksum read: 129
+Checksum calc'd: 221
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:12 2017
+Temp: 25.129
+Humidity: 40.192
+Checksum read: 255
+Checksum calc'd: 130
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:13 2017
+Temp: 24.64
+Humidity: 40.0
+Checksum read: 64
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:14 2017
+Temp: 24.1
+Humidity: 40.0
+Checksum read: 64
+Checksum calc'd: 65
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:15 2017
+Temp: 255.255
+Humidity: 40.255
+Checksum read: 255
+Checksum calc'd: 37
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:16 2017
+Temp: 56.0
+Humidity: 40.0
+Checksum read: 64
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:17 2017
+Temp: 24.0
+Humidity: 232.2
+Checksum read: 67
+Checksum calc'd: 2
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:18 2017
+Temp: 24.0
+Humidity: 41.32
+Checksum read: 74
+Checksum calc'd: 97
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:19 2017
+Temp: 152.8
+Humidity: 40.0
+Checksum read: 129
+Checksum calc'd: 200
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:52 2017
+Temp: 216.1
+Humidity: 40.0
+Checksum read: 1
+Checksum calc'd: 1
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:53 2017
+Temp: 56.0
+Humidity: 42.0
+Checksum read: 67
+Checksum calc'd: 98
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:54 2017
+Temp: 24.0
+Humidity: 47.3
+Checksum read: 255
+Checksum calc'd: 74
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:55 2017
+Temp: 24.0
+Humidity: 41.0
+Checksum read: 112
+Checksum calc'd: 65
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:56 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 77
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:57 2017
+Temp: 24.0
+Humidity: 41.192
+Checksum read: 97
+Checksum calc'd: 1
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:58 2017
+Temp: 88.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:03:59 2017
+Temp: 28.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 68
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:25 2017
+Temp: 97.65
+Humidity: 148.96
+Checksum read: 255
+Checksum calc'd: 150
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:26 2017
+Temp: 12.0
+Humidity: 157.0
+Checksum read: 33
+Checksum calc'd: 169
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:27 2017
+Temp: 11.128
+Humidity: 148.156
+Checksum read: 37
+Checksum calc'd: 187
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:28 2017
+Temp: 76.0
+Humidity: 148.128
+Checksum read: 36
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:29 2017
+Temp: 48.128
+Humidity: 212.160
+Checksum read: 255
+Checksum calc'd: 36
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:30 2017
+Temp: 12.0
+Humidity: 150.0
+Checksum read: 33
+Checksum calc'd: 162
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:31 2017
+Temp: 24.0
+Humidity: 148.194
+Checksum read: 65
+Checksum calc'd: 110
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:32 2017
+Temp: 12.2
+Humidity: 148.0
+Checksum read: 33
+Checksum calc'd: 162
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:33 2017
+Temp: 12.0
+Humidity: 212.9
+Checksum read: 237
+Checksum calc'd: 233
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:05:34 2017
+Temp: 12.0
+Humidity: 148.0
+Checksum read: 35
+Checksum calc'd: 160
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:41 2017
+Temp: 96.2
+Humidity: 224.0
+Checksum read: 255
+Checksum calc'd: 66
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:42 2017
+Temp: 87.0
+Humidity: 42.0
+Checksum read: 66
+Checksum calc'd: 129
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:43 2017
+Temp: 23.0
+Humidity: 105.6
+Checksum read: 65
+Checksum calc'd: 134
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:44 2017
+Temp: 24.36
+Humidity: 47.0
+Checksum read: 66
+Checksum calc'd: 107
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:45 2017
+Temp: 92.0
+Humidity: 163.64
+Checksum read: 255
+Checksum calc'd: 63
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:46 2017
+Temp: 88.0
+Humidity: 40.0
+Checksum read: 65
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:47 2017
+Temp: 31.2
+Humidity: 232.0
+Checksum read: 190
+Checksum calc'd: 9
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:48 2017
+Temp: 24.0
+Humidity: 40.4
+Checksum read: 71
+Checksum calc'd: 68
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:49 2017
+Temp: 46.0
+Humidity: 157.0
+Checksum read: 127
+Checksum calc'd: 203
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:50 2017
+Temp: 24.180
+Humidity: 40.0
+Checksum read: 129
+Checksum calc'd: 244
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:51 2017
+Temp: 24.2
+Humidity: 239.0
+Checksum read: 65
+Checksum calc'd: 9
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:52 2017
+Temp: 23.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 63
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:53 2017
+Temp: 24.0
+Humidity: 40.3
+Checksum read: 65
+Checksum calc'd: 67
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:54 2017
+Temp: 24.0
+Humidity: 169.0
+Checksum read: 65
+Checksum calc'd: 193
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:55 2017
+Temp: 24.0
+Humidity: 72.0
+Checksum read: 97
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:56 2017
+Temp: 31.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 71
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:57 2017
+Temp: 39.32
+Humidity: 56.0
+Checksum read: 62
+Checksum calc'd: 127
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:58 2017
+Temp: 24.6
+Humidity: 41.64
+Checksum read: 65
+Checksum calc'd: 135
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:06:59 2017
+Temp: 23.0
+Humidity: 40.18
+Checksum read: 62
+Checksum calc'd: 81
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:00 2017
+Temp: 151.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 191
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:01 2017
+Temp: 24.0
+Humidity: 104.0
+Checksum read: 81
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:02 2017
+Temp: 151.0
+Humidity: 43.0
+Checksum read: 62
+Checksum calc'd: 194
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:03 2017
+Temp: 23.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 63
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:04 2017
+Temp: 23.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 63
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:05 2017
+Temp: 24.0
+Humidity: 40.32
+Checksum read: 65
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:06 2017
+Temp: 184.0
+Humidity: 40.1
+Checksum read: 65
+Checksum calc'd: 225
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:07 2017
+Temp: 27.1
+Humidity: 168.0
+Checksum read: 62
+Checksum calc'd: 196
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:07:08 2017
+Temp: 24.0
+Humidity: 40.0
+Checksum read: 71
+Checksum calc'd: 64
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:53 2017
+Temp: 23.0
+Humidity: 40.0
+Checksum read: 62
+Checksum calc'd: 63
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:54 2017
+Temp: 23.0
+Humidity: 42.0
+Checksum read: 64
+Checksum calc'd: 65
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:55 2017
+Temp: 46.0
+Humidity: 82.0
+Checksum read: 129
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:56 2017
+Temp: 46.0
+Humidity: 82.48
+Checksum read: 137
+Checksum calc'd: 176
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:57 2017
+Temp: 46.0
+Humidity: 50.0
+Checksum read: 129
+Checksum calc'd: 96
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:58 2017
+Temp: 151.0
+Humidity: 41.0
+Checksum read: 65
+Checksum calc'd: 192
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:19:59 2017
+Temp: 23.0
+Humidity: 105.0
+Checksum read: 73
+Checksum calc'd: 128
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:00 2017
+Temp: 23.0
+Humidity: 43.0
+Checksum read: 113
+Checksum calc'd: 66
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:01 2017
+Temp: 46.96
+Humidity: 88.0
+Checksum read: 255
+Checksum calc'd: 230
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:02 2017
+Temp: 46.128
+Humidity: 80.0
+Checksum read: 127
+Checksum calc'd: 254
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:03 2017
+Temp: 23.0
+Humidity: 43.96
+Checksum read: 46
+Checksum calc'd: 162
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:04 2017
+Temp: 184.1
+Humidity: 160.64
+Checksum read: 255
+Checksum calc'd: 153
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:05 2017
+Temp: 215.32
+Humidity: 40.0
+Checksum read: 127
+Checksum calc'd: 31
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:06 2017
+Temp: 62.1
+Humidity: 80.0
+Checksum read: 127
+Checksum calc'd: 143
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:07 2017
+Temp: 92.64
+Humidity: 32.0
+Checksum read: 255
+Checksum calc'd: 188
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:20:08 2017
+Temp: 174.0
+Humidity: 82.0
+Checksum read: 127
+Checksum calc'd: 0
+Checksum valid: false
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:23:43 2017
+Temp: 255.255
+Humidity: 2.255
+Checksum read: 255
+Checksum calc'd: 255
+Checksum valid: true
+
+
+
+RESULTS OF READING VIA: interrupts
+TIME OF MEASUREMENT: Mon Oct  9 17:50:03 2017
+Temp: 24.0
+Humidity: 29.0
+Checksum read: 53
+Checksum calc'd: 53
+Checksum valid: true

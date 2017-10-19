@@ -1,2 +1,0 @@
-Time: Thu Oct  5 18:12:09 2017
- humidity = 29 % temp = 26 C (78.800003 F)
