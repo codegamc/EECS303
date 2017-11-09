@@ -11,7 +11,7 @@
 	.eabi_attribute 30, 6
 	.eabi_attribute 34, 1
 	.eabi_attribute 18, 4
-
+	.file	"pwm2.c"
 	.global	ledPin
 	.section	.rodata
 	.align	2
@@ -48,23 +48,43 @@ main:
 	b	.L2
 .L3:
 	mov	r2, #7
-	ldr	r3, .L5
+	ldr	r3, .L7
 	ldr	r3, [r3]
 	mov	r0, r2
 	mov	r1, r3
 	bl	softPwmWrite
-	ldr	r3, .L5
+	ldr	r3, .L7
 	ldr	r3, [r3]
 	add	r3, r3, #1
-	ldr	r2, .L5
+	ldr	r2, .L7
 	str	r3, [r2]
-	mov	r0, #20
+	mov	r0, #40
 	bl	delay
 .L2:
-	ldr	r3, .L5
+	ldr	r3, .L7
 	ldr	r3, [r3]
 	cmp	r3, #99
 	ble	.L3
+	b	.L4
+.L5:
+	mov	r2, #7
+	ldr	r3, .L7
+	ldr	r3, [r3]
+	mov	r0, r2
+	mov	r1, r3
+	bl	softPwmWrite
+	ldr	r3, .L7
+	ldr	r3, [r3]
+	sub	r3, r3, #1
+	ldr	r2, .L7
+	str	r3, [r2]
+	mov	r0, #40
+	bl	delay
+.L4:
+	ldr	r3, .L7
+	ldr	r3, [r3]
+	cmp	r3, #0
+	bgt	.L5
 	mov	r3, #7
 	mov	r0, r3
 	mov	r1, #0
@@ -72,9 +92,9 @@ main:
 	mov	r3, #0
 	mov	r0, r3
 	ldmfd	sp!, {fp, pc}
-.L6:
+.L8:
 	.align	2
-.L5:
+.L7:
 	.word	brightness
 	.size	main, .-main
 	.ident	"GCC: (Raspbian 4.9.2-10) 4.9.2"
