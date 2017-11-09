@@ -11,7 +11,7 @@
 	.eabi_attribute 30, 6
 	.eabi_attribute 34, 1
 	.eabi_attribute 18, 4
-	.file	"pwm2.c"
+
 	.global	ledPin
 	.section	.rodata
 	.align	2
