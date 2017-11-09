@@ -6,9 +6,9 @@
          .balign 4      
 Intro:   .asciz  "Raspberry Pi wiringPi pwm test\n"
 ErrMsg:  .asciz "Setup didn't work... Aborting...\n"
-LedPin:  .int   1
+LedPin:  .int   7
 i:       .int   0
-delayMs: .int   10
+delayMs: .int   100
 PWM_OUTPUT   =     2
         
 @ ---------------------------------------
