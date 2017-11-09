@@ -15,8 +15,16 @@ int main(void)
   {
     softPwmWrite(ledPin, brightness);
     brightness++;
-    delay(20);
+    delay(40);
   }
+  while(brightness > 0)
+  {
+    softPwmWrite(ledPin, brightness);
+    brightness--;
+    delay(40);
+  }
+  
+  
   softPwmWrite(ledPin, 0);
   
   return 0;
