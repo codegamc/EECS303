@@ -22,7 +22,7 @@ PWM_OUTPUT   =     2
         .extern delay
         .extern digitalWrite
         .extern analogWrite
-	    .extern pwmWrite
+	.extern pwmWrite
         .extern pinMode
         .extern pwmSetMode
         
