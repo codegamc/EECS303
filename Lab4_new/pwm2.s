@@ -49,5 +49,3 @@ main:
 	mov	r1, #0 @and value 0 on input 2
 	bl	softPwmWrite @execute softPwmWrite with PWM value zero to turn off LED
 	pop {ip, pc}
-
-	
