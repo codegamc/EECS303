@@ -1,0 +1,1 @@
+cmd_/home/group7/Documents/Lab7/blink_km.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/group7/Documents/Lab7/blink_km.ko /home/group7/Documents/Lab7/blink_km.o /home/group7/Documents/Lab7/blink_km.mod.o
