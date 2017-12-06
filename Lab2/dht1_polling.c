@@ -9,7 +9,7 @@
 #include <time.h>
 
 #define MAXTIMINGS	85
-#define DHTPIN		7
+#define DHTPIN		4
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 int count = 0;
 FILE *fp;

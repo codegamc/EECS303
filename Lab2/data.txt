@@ -1,0 +1,2 @@
+Time: Tue Dec  5 17:46:03 2017
+ humidity = 28 % temp = 27 C (80.599998 F)
