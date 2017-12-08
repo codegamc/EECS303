@@ -270,8 +270,8 @@ static int dht11_read_raw(struct iio_dev *iio_dev,
 		if (ret)
 			goto err;
 	}
-	printk(KERN_INFO "Temp: %d\n", (dht11->temperature) / 1000);
-	printk(KERN_INFO "Humidity: %d\n", (dht11->humidity) / 1000);
+	//printk(KERN_INFO "Temp: %d\n", (dht11->temperature) / 1000);
+	//printk(KERN_INFO "Humidity: %d\n", (dht11->humidity) / 1000);
 	ret = IIO_VAL_INT;
 	if (chan->type == IIO_TEMP)
 		*val = dht11->temperature;
