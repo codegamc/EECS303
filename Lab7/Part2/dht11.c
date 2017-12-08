@@ -1,450 +1,366 @@
-// To compile: gcc dht11_interr.c -o dht11_interr -lwiringPi -Wall
+/*
+ * DHT11/DHT22 bit banging GPIO driver
+ *
+ * Copyright (c) Harald Geyer <harald@ccbib.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ */
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sched.h>
-#include <stdint.h>
-#include <time.h>
+#include <linux/err.h>
+#include <linux/interrupt.h>
+#include <linux/device.h>
+#include <linux/kernel.h>
+#include <linux/printk.h>
+#include <linux/slab.h>
+#include <linux/of.h>
+#include <linux/of_device.h>
+#include <linux/sysfs.h>
+#include <linux/io.h>
+#include <linux/module.h>
+#include <linux/platform_device.h>
+#include <linux/wait.h>
+#include <linux/bitops.h>
+#include <linux/completion.h>
+#include <linux/mutex.h>
+#include <linux/delay.h>
+#include <linux/gpio.h>
+#include <linux/of_gpio.h>
+#include <linux/timekeeping.h>
 
-#include "wiringPi.h"
+/* #include <linux/iio/iio_core.h> */
+#include <linux/iio/iio.h> 
 
-typedef enum State
+#define DRIVER_NAME	"dht11"
+
+#define DHT11_DATA_VALID_TIME	2000000000  /* 2s in ns */
+
+#define DHT11_EDGES_PREAMBLE 2
+#define DHT11_BITS_PER_READ 40
+/*
+ * Note that when reading the sensor actually 84 edges are detected, but
+ * since the last edge is not significant, we only store 83:
+ */
+#define DHT11_EDGES_PER_READ (2 * DHT11_BITS_PER_READ + \
+			      DHT11_EDGES_PREAMBLE + 1)
+
+/*
+ * Data transmission timing:
+ * Data bits are encoded as pulse length (high time) on the data line.
+ * 0-bit: 22-30uS -- typically 26uS (AM2302)
+ * 1-bit: 68-75uS -- typically 70uS (AM2302)
+ * The acutal timings also depend on the properties of the cable, with
+ * longer cables typically making pulses shorter.
+ *
+ * Our decoding depends on the time resolution of the system:
+ * timeres > 34uS ... don't know what a 1-tick pulse is
+ * 34uS > timeres > 30uS ... no problem (30kHz and 32kHz clocks)
+ * 30uS > timeres > 23uS ... don't know what a 2-tick pulse is
+ * timeres < 23uS ... no problem
+ *
+ * Luckily clocks in the 33-44kHz range are quite uncommon, so we can
+ * support most systems if the threshold for decoding a pulse as 1-bit
+ * is chosen carefully. If somebody really wants to support clocks around
+ * 40kHz, where this driver is most unreliable, there are two options.
+ * a) select an implementation using busy loop polling on those systems
+ * b) use the checksum to do some probabilistic decoding
+ */
+#define DHT11_START_TRANSMISSION_MIN	18000  /* us */
+#define DHT11_START_TRANSMISSION_MAX	20000  /* us */
+#define DHT11_MIN_TIMERES	34000  /* ns */
+#define DHT11_THRESHOLD		49000  /* ns */
+#define DHT11_AMBIG_LOW		23000  /* ns */
+#define DHT11_AMBIG_HIGH	30000  /* ns */
+
+struct dht11 {
+	struct device			*dev;
+
+	int				gpio;
+	int				irq;
+
+	struct completion		completion;
+	/* The iio sysfs interface doesn't prevent concurrent reads: */
+	struct mutex			lock;
+
+	s64				timestamp;
+	int				temperature;
+	int				humidity;
+
+	/* num_edges: -1 means "no transmission in progress" */
+	int				num_edges;
+	struct {s64 ts; int value; }	edges[DHT11_EDGES_PER_READ];
+};
+
+#ifdef CONFIG_DYNAMIC_DEBUG
+/*
+ * dht11_edges_print: show the data as actually received by the
+ *                    driver.
+ */
+static void dht11_edges_print(struct dht11 *dht11)
 {
-	INIT_PULL_LINE_LOW,
-	INPUT_JUST_ENABLED,
-	HIGH_ACK,
-	BIT_READ_RISING,
-	READ_COMPLETE,
-	ERROR_STATE
-} State;
+	int i;
 
-static volatile State currentState = READ_COMPLETE;
-static volatile int currentReadingBitIdx = 0;
-static volatile int microsPreviousRisingEdge = 0;
-static volatile int bitsRcvd[40];
-static volatile bool readReady = false;
-static volatile int measuredBitHighTime[40];
+	dev_dbg(dht11->dev, "%d edges detected:\n", dht11->num_edges);
+	for (i = 1; i < dht11->num_edges; ++i) {
+		dev_dbg(dht11->dev, "%d: %lld ns %s\n", i,
+			dht11->edges[i].ts - dht11->edges[i - 1].ts,
+			dht11->edges[i - 1].value ? "high" : "low");
+	}
+}
+#endif /* CONFIG_DYNAMIC_DEBUG */
 
-const int SENSOR_PIN_NUM = 7;
-const int RESPONSE_TIME_US = 80;
-const int PRE_BIT_DELAY_US = 50;
-const int MAX_TIME_FOR_ZERO_BIT_US = 28;
-const int MAX_TIME_FOR_ONE_BIT_US = 70;
-const int MAX_TIME_BUFFER = 10;
-const int BITS_PER_BYTE = 8;
-const char * const OUTPUT_FILENAME = "./temperatureandhumidityrecords.txt";
-#define TOTAL_BITS_PER_READ 40
-
-// Global Initializations
-bool readSuccessful = false;
-
-// We use debug mode to print timings associated with the 
-// measurements.
-//#define DEBUG_MODE
-#ifdef DEBUG_MODE
-	int numUsWaitingForSensorResponse = 0;
-	int numUsLowSensorResponse = 0;
-	int numUsHighSensorResonse = 0;
-	int numUsLowPreBit[40];
-	int numUsForBit[40];
-	int bitNum = 0;
-#endif
-
-//Function Declerations
-void setupGpio();
-void sensorReadISR();
-void initiateRead();
-void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char * sensorInteractionMode);
-void releaseGpio();
-int piHiPri (const int pri);
-char * getTimeAsString();
-void writeResultsToFile(int temp_int, int temp_dec, 
-						int humid_int, int humid_dec,
-						int checksumRead, int checksumGen,
-						const char * sensorInteractionMode,
-						const char * timeAsString,
-						const char * errorString);
-uint8_t generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec);
-int arrAndOffsetToInt(int * bits_rcvd, int offset);
-//End function declerations
-
-int main()
+static unsigned char dht11_decode_byte(char *bits)
 {
-	if (piHiPri(99) == -1)
-	{
-		printf("Error setting priority! Exiting");
-		return -1;
-	}
-		
-	setupGpio();
-	
-	if (wiringPiISR(SENSOR_PIN_NUM, INT_EDGE_RISING, sensorReadISR) < 0)
-	{
-		printf("ERROR SETTING ISR!\n");
-		currentState = ERROR_STATE;
-	}		
+	unsigned char ret = 0;
+	int i;
 
-	int readIdx = 0;
-	while (!readSuccessful && readIdx < 100)
-	{
-		printf("\nSample Number: %i\n", readIdx);
-		
-		memset((int *)bitsRcvd, -1, TOTAL_BITS_PER_READ * sizeof(int));
-		memset((int *)measuredBitHighTime, -1, TOTAL_BITS_PER_READ * sizeof(int));
-
-		readReady = false;
-	
-		initiateRead();
-		
-		//delay one second
-		delayMicroseconds(1000000);
-		
-		// Write results to console and output.
-		if (currentState == ERROR_STATE)
-		{
-			analyzeAndPrintResults((int *)bitsRcvd, "Error reading from the sensor\n", "interrupts");
-		}
-		else
-		{
-			analyzeAndPrintResults((int *)bitsRcvd, NULL, "interrupts");
-		}
-		
-		++readIdx;
+	for (i = 0; i < 8; ++i) {
+		ret <<= 1;
+		if (bits[i])
+			++ret;
 	}
-		
-	// Free the GPIO
-	releaseGpio();
-	
+
+	return ret;
+}
+
+static int dht11_decode(struct dht11 *dht11, int offset)
+{
+	int i, t;
+	char bits[DHT11_BITS_PER_READ];
+	unsigned char temp_int, temp_dec, hum_int, hum_dec, checksum;
+
+	for (i = 0; i < DHT11_BITS_PER_READ; ++i) {
+		t = dht11->edges[offset + 2 * i + 2].ts -
+			dht11->edges[offset + 2 * i + 1].ts;
+		if (!dht11->edges[offset + 2 * i + 1].value) {
+			dev_dbg(dht11->dev,
+				"lost synchronisation at edge %d\n",
+				offset + 2 * i + 1);
+			return -EIO;
+		}
+		bits[i] = t > DHT11_THRESHOLD;
+	}
+
+	hum_int = dht11_decode_byte(bits);
+	hum_dec = dht11_decode_byte(&bits[8]);
+	temp_int = dht11_decode_byte(&bits[16]);
+	temp_dec = dht11_decode_byte(&bits[24]);
+	checksum = dht11_decode_byte(&bits[32]);
+
+	if (((hum_int + hum_dec + temp_int + temp_dec) & 0xff) != checksum) {
+		dev_dbg(dht11->dev, "invalid checksum\n");
+		return -EIO;
+	}
+
+	dht11->timestamp = ktime_get_boot_ns();
+	if (hum_int < 20) {  /* DHT22 */
+		dht11->temperature = (((temp_int & 0x7f) << 8) + temp_dec) *
+					((temp_int & 0x80) ? -100 : 100);
+		dht11->humidity = ((hum_int << 8) + hum_dec) * 100;
+	} else if (temp_dec == 0 && hum_dec == 0) {  /* DHT11 */
+		dht11->temperature = temp_int * 1000;
+		dht11->humidity = hum_int * 1000;
+	} else {
+		dev_err(dht11->dev,
+			"Don't know how to decode data: %d %d %d %d\n",
+			hum_int, hum_dec, temp_int, temp_dec);
+		return -EIO;
+	}
+
 	return 0;
 }
 
 /*
- * Prepares the sensor for reading. This function sets the state machine
- * to its initial state, pulls (and keeps low) the sensor pin,
- * and sets readReady to true. It then calls the ISR directly
- * in order to let the sensor take over controlling the line.
+ * IRQ handler called on GPIO edges
  */
-void initiateRead()
-{	
-	currentState = INIT_PULL_LINE_LOW;
-	
-	// Prepare the sensor
-	// Reserve the GPIO pin
-	pinMode(SENSOR_PIN_NUM, OUTPUT);
-	digitalWrite(SENSOR_PIN_NUM, LOW);
-	delay(20);
-	
-	// Let the ISR know that sensor is ready to read.
-	readReady = true;
-	
-	sensorReadISR();	
+static irqreturn_t dht11_handle_irq(int irq, void *data)
+{
+	struct iio_dev *iio = data;
+	struct dht11 *dht11 = iio_priv(iio);
+
+	/* TODO: Consider making the handler safe for IRQ sharing */
+	if (dht11->num_edges < DHT11_EDGES_PER_READ && dht11->num_edges >= 0) {
+		dht11->edges[dht11->num_edges].ts = ktime_get_boot_ns();
+		dht11->edges[dht11->num_edges++].value =
+						gpio_get_value(dht11->gpio);
+
+		if (dht11->num_edges >= DHT11_EDGES_PER_READ)
+			complete(&dht11->completion);
+	}
+
+	return IRQ_HANDLED;
 }
 
-/*
- * ISR for reading the sensor. There are several states which this ISR accounts for.
- */
-void sensorReadISR()
+static int dht11_read_raw(struct iio_dev *iio_dev,
+			  const struct iio_chan_spec *chan,
+			int *val, int *val2, long m)
 {
-	switch (currentState)
-	{
-		case INIT_PULL_LINE_LOW :
-			if (readReady == true)
-			{
-				currentReadingBitIdx = 0;				
-				microsPreviousRisingEdge = 0;				
-				currentState = INPUT_JUST_ENABLED;			
-				digitalWrite(SENSOR_PIN_NUM, HIGH);
-				pinMode(SENSOR_PIN_NUM, INPUT);
-			}
-			break;
-		
-		// Temporary, single-use state. It serves to handle
-		// the case where the sensor pin is set to an input
-		// in the INIT_PULL_LINE_LOW state, triggering an
-		// unwanted interrupt.
-		case INPUT_JUST_ENABLED:
-			currentState = HIGH_ACK;
-			break;
-			
-		// Entered at the beginning of the high response
-		case HIGH_ACK :
-			currentState = BIT_READ_RISING;
-			break;
+	struct dht11 *dht11 = iio_priv(iio_dev);
+	int ret, timeres, offset;
 
-		case BIT_READ_RISING:
-			; // Yes, this is intentional. It allows the variable to be declared immediately following a label.
-			
-			// Get the time when this edge occurred
+	mutex_lock(&dht11->lock);
+	if (dht11->timestamp + DHT11_DATA_VALID_TIME < ktime_get_boot_ns()) {
+		timeres = ktime_get_resolution_ns();
+		dev_dbg(dht11->dev, "current timeresolution: %dns\n", timeres);
+		if (timeres > DHT11_MIN_TIMERES) {
+			dev_err(dht11->dev, "timeresolution %dns too low\n",
+				timeres);
+			/* In theory a better clock could become available
+			 * at some point ... and there is no error code
+			 * that really fits better.
+			 */
+			ret = -EAGAIN;
+			goto err;
+		}
+		if (timeres > DHT11_AMBIG_LOW && timeres < DHT11_AMBIG_HIGH)
+			dev_warn(dht11->dev,
+				 "timeresolution: %dns - decoding ambiguous\n",
+				 timeres);
 
-			unsigned int current_time = micros();
-			// Get the amount of uS the bit-determining pulse was high.
-			// Subtract 50us, the pre-bit delay.
-			
-			// If this is the first bit, we have no reference for a differential reading.
-			// The read time has been set, so break and wait for the next rising edge
-			// to determine how long this cycle was high.
-			if (currentReadingBitIdx == 0)
-			{
-				microsPreviousRisingEdge = current_time;
-				++currentReadingBitIdx;
+		reinit_completion(&dht11->completion);
+
+		dht11->num_edges = 0;
+		ret = gpio_direction_output(dht11->gpio, 0);
+		if (ret)
+			goto err;
+		usleep_range(DHT11_START_TRANSMISSION_MIN,
+			     DHT11_START_TRANSMISSION_MAX);
+		ret = gpio_direction_input(dht11->gpio);
+		if (ret)
+			goto err;
+
+		ret = request_irq(dht11->irq, dht11_handle_irq,
+				  IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
+				  iio_dev->name, iio_dev);
+		if (ret)
+			goto err;
+
+		ret = wait_for_completion_killable_timeout(&dht11->completion,
+							   HZ);
+
+		free_irq(dht11->irq, iio_dev);
+
+#ifdef CONFIG_DYNAMIC_DEBUG
+		dht11_edges_print(dht11);
+#endif
+
+		if (ret == 0 && dht11->num_edges < DHT11_EDGES_PER_READ - 1) {
+			dev_err(dht11->dev, "Only %d signal edges detected\n",
+				dht11->num_edges);
+			ret = -ETIMEDOUT;
+		}
+		if (ret < 0)
+			goto err;
+
+		offset = DHT11_EDGES_PREAMBLE +
+				dht11->num_edges - DHT11_EDGES_PER_READ;
+		for (; offset >= 0; --offset) {
+			ret = dht11_decode(dht11, offset);
+			if (!ret)
 				break;
-			}
+		}
 
-			
-			unsigned int prevBitHighTime = current_time - microsPreviousRisingEdge - 50;
-			microsPreviousRisingEdge = current_time;
-			// Distinguish the bit using prevBitHighTime
-			// Don't forget there might be error if the time is too large.
-			
-			// Account for the this bit's high time.
-			measuredBitHighTime[currentReadingBitIdx - 1] = prevBitHighTime;
-			if(prevBitHighTime > 40)
-			{
-				bitsRcvd[currentReadingBitIdx - 1] = 1;
-				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 1);
-			}	
-			else{
-				bitsRcvd[currentReadingBitIdx - 1] = 0;
-				//printf("bit #%d is :%u\n", currentReadingBitIdx - 1, 0);
-			}
-			/*else
-			{
-					currentState = ERROR_STATE;
-			}*/
-				
-			++currentReadingBitIdx;
-			
-			// The "-1" accounts for a 0-initial value for the idx
-			// At this point, the last bit time has to be read, so delay
-			// 40, then poll the input to see if it's high.
-			// If it is, then the current bit must be a 1.
-			// The side effect to this is that if this bit is 
-			// held too long, we won't be able to tell.
-			if (currentReadingBitIdx >= 40)
-			{
-				currentState = READ_COMPLETE;
-				delayMicroseconds(40);
-				
-				if (digitalRead(SENSOR_PIN_NUM) == LOW)
-				{
-					bitsRcvd[currentReadingBitIdx - 1] = 0;
-				}
-				else
-				{
-					bitsRcvd[currentReadingBitIdx - 1] = 1;
-				}
-			}
-			
-			break;
-			
-		default :
-			break;
+		if (ret)
+			goto err;
 	}
-}
-
-
-/*
- * Initializes the GPIO pin to high
- */
-void setupGpio()
-{
-	
-	wiringPiSetupGpio();
-
-	pinMode(SENSOR_PIN_NUM, OUTPUT);
-	digitalWrite(SENSOR_PIN_NUM, HIGH);
-
-
-	// Call setup
-	
-	// Reserve the GPIO pin
-	
-	// Set the line high by default
-	
-
-	pullUpDnControl(SENSOR_PIN_NUM, PUD_UP);
-}
-
-// Releases the GPIO reservation.
-void releaseGpio()
-{
-	system("gpio-admin export 7");
-	system("gpio-admin unexport 7");
-}
-
-/*
- * Returns the 8-bit integer whose first bit is located at
- * at bits_rcvd[offset]
- */
-int arrAndOffsetToInt(int * bits_rcvd, int offset)
-{
-	int val = 0;
-	int bit_idx = 0;
-	for (; bit_idx < BITS_PER_BYTE; ++bit_idx)
-	{
-		val |= bits_rcvd[offset + 7 - bit_idx] << bit_idx;
-	}
-	return val;
-}
-
-/*
- * Generates a checksum from the humidity and temp readings.
- */
-uint8_t generateChecksum(uint8_t temp_int, uint8_t temp_dec, uint8_t humid_int, uint8_t humid_dec)
-{
-	// Use uint8_t variables to ensure that the result of each addition
-	// is only eight bits.
-	uint8_t checksum = (temp_int + temp_dec + humid_int + humid_dec) & 0xFF;
-	//checksum &= 0xFF;
-
-	return checksum;
-}
-
-/*
- * Processes the data read, and writes to a file in the event that
- * the reading was successful.
- */
-void analyzeAndPrintResults(int * bitsRcvd, const char * errorString, const char * sensorInteractionMode)
-{	
-	if (errorString != NULL)
-	{
-		printf("%s", errorString);
-	}
-
-	char * timeAsString = getTimeAsString();
-	
-	if (timeAsString != NULL)
-	{
-		printf("Time of reading: %s", timeAsString);
-	}
-
-	int i;
-	for(i = 0; i < 40; i = i + 1)
-	{
-		printf("bit #%d is :%d\n", i, bitsRcvd[i]);
-	}
-
-	
-	uint8_t temp_int = arrAndOffsetToInt(bitsRcvd, 16);
-	uint8_t temp_dec = arrAndOffsetToInt(bitsRcvd, 24);
-	uint8_t humid_int = arrAndOffsetToInt(bitsRcvd, 0);
-	uint8_t humid_dec = arrAndOffsetToInt(bitsRcvd, 8);
-	uint8_t checksum_read = arrAndOffsetToInt(bitsRcvd, 32);
-
-
-	// Check checksum
-	uint8_t checksum_generated = generateChecksum(temp_int, temp_dec, humid_int, humid_dec);
-
-	printf("Generated checksum: %u, read Checksum: %u\n", checksum_generated, checksum_read);
-
-
-
-
-	if(checksum_generated == checksum_read)
-	{
-		// Print the results
-		printf("Temp: %d.%d\n", temp_int, temp_dec);
-		printf("Humidity: %d.%d\n", humid_int, humid_dec);
-		
-		// Write the results to a file
-		writeResultsToFile(temp_int, temp_dec, humid_int, humid_dec, checksum_read, checksum_generated, sensorInteractionMode, timeAsString, errorString);
-	}
+	printk(KERN_INFO "Temp: %d", (dht11->temperature) / 1000);
+	printk(KERN_INFO "Humidity: %d", (dht11->humidity) / 1000);
+	ret = IIO_VAL_INT;
+	if (chan->type == IIO_TEMP)
+		*val = dht11->temperature;
+	else if (chan->type == IIO_HUMIDITYRELATIVE)
+		*val = dht11->humidity;
 	else
-	{
-		printf("Checksum failed");
-	}
+		ret = -EINVAL;
+err:
+	dht11->num_edges = -1;
+	mutex_unlock(&dht11->lock);
+	return ret;
 }
 
-/*
- * Write the temperature, humidity, and the sensor communcation type to
- * a file. The filename is the constant OUTPUT_FILENAME. It appends to
- * the file rather than overwrites it (if it exists already). The file
- * will be searched for in the current working directory.
- */
-void writeResultsToFile(int temp_int, int temp_dec, 
-						int humid_int, int humid_dec,
-						int checksumRead, int checksumGen,
-						const char * sensorInteractionMode,
-						const char * timeAsString,
-						const char * errorString)
+static const struct iio_info dht11_iio_info = {
+	.driver_module		= THIS_MODULE,
+	.read_raw		= dht11_read_raw,
+};
+
+static const struct iio_chan_spec dht11_chan_spec[] = {
+	{ .type = IIO_TEMP,
+		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED), },
+	{ .type = IIO_HUMIDITYRELATIVE,
+		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED), }
+};
+
+static const struct of_device_id dht11_dt_ids[] = {
+	{ .compatible = "dht11", },
+	{ }
+};
+MODULE_DEVICE_TABLE(of, dht11_dt_ids);
+
+static int dht11_probe(struct platform_device *pdev)
 {
-	// Open the file
-	FILE * outFp = fopen(OUTPUT_FILENAME, "a");
-	
-	if (outFp == NULL)
-	{
-		printf("\nERROR WRITING DATA TO FILE!\n");
+	struct device *dev = &pdev->dev;
+	struct device_node *node = dev->of_node;
+	struct dht11 *dht11;
+	struct iio_dev *iio;
+	int ret;
+
+	iio = devm_iio_device_alloc(dev, sizeof(*dht11));
+	if (!iio) {
+		dev_err(dev, "Failed to allocate IIO device\n");
+		return -ENOMEM;
 	}
-	
-	fprintf(outFp, "\n\n\nRESULTS OF READING VIA: %s\n", sensorInteractionMode);
-	
-	if (errorString != NULL)
-	{
-		fprintf(outFp, "%s", errorString);
+
+	dht11 = iio_priv(iio);
+	dht11->dev = dev;
+
+	ret = of_get_gpio(node, 0);
+	if (ret < 0)
+		return ret;
+	dht11->gpio = ret;
+	ret = devm_gpio_request_one(dev, dht11->gpio, GPIOF_IN, pdev->name);
+	if (ret)
+		return ret;
+
+	dht11->irq = gpio_to_irq(dht11->gpio);
+	if (dht11->irq < 0) {
+		dev_err(dev, "GPIO %d has no interrupt\n", dht11->gpio);
+		return -EINVAL;
 	}
-	
-	if (timeAsString == NULL)
-	{
-		fprintf(outFp, "ERROR RETRIEVING TIME\n");
-	}
-	else
-	{
-		fprintf(outFp, "TIME OF MEASUREMENT: %s", timeAsString);
-	}
-	
-	// Print the results
-	fprintf(outFp, "Temp: %d.%d\n", temp_int, temp_dec);
-	fprintf(outFp, "Humidity: %d.%d\n", humid_int, humid_dec);
-	fprintf(outFp, "Checksum read: %d\n", checksumRead);
-	fprintf(outFp, "Checksum calc'd: %d\n", checksumGen);
-	fprintf(outFp, "Checksum valid: %s\n", checksumRead == checksumGen ? "true" : "false");
-	
-	if(fclose(outFp) != 0)
-	{
-		printf("\nERROR CLOSING FILE!\n");
-	}
+
+	dht11->timestamp = ktime_get_boot_ns() - DHT11_DATA_VALID_TIME - 1;
+	dht11->num_edges = -1;
+
+	platform_set_drvdata(pdev, iio);
+
+	init_completion(&dht11->completion);
+	mutex_init(&dht11->lock);
+	iio->name = pdev->name;
+	iio->dev.parent = &pdev->dev;
+	iio->info = &dht11_iio_info;
+	iio->modes = INDIO_DIRECT_MODE;
+	iio->channels = dht11_chan_spec;
+	iio->num_channels = ARRAY_SIZE(dht11_chan_spec);
+
+	return devm_iio_device_register(dev, iio);
 }
 
-/*
- * Gets the current time/date as string.
- */
-char * getTimeAsString()
-{
-	// Get the time and write it to the file.
-	time_t currentTime;
-	char * timeAsString;
-	currentTime = time(NULL);
-	if (currentTime == ((time_t)-1))
-	{
-		printf("ERROR ACCESSING TIME!\n");
-	}
-	
-	timeAsString = ctime(&currentTime);
-	if (timeAsString == NULL)
-	{
-		printf("ERROR CONVERTING TIME TO STRING!\n");
-	}
-	
-	return timeAsString;
-}
+static struct platform_driver dht11_driver = {
+	.driver = {
+		.name	= DRIVER_NAME,
+		.of_match_table = dht11_dt_ids,
+	},
+	.probe  = dht11_probe,
+};
 
-/*
- * piHiPri:
- *	Attempt to set a high priority schedulling for the running program
- */
+module_platform_driver(dht11_driver);
 
-int piHiPri (const int pri)
-{
-  struct sched_param sched ;
-
-  memset (&sched, 0, sizeof(sched)) ;
-
-  if (pri > sched_get_priority_max (SCHED_RR))
-    sched.sched_priority = sched_get_priority_max (SCHED_RR) ;
-  else
-    sched.sched_priority = pri ;
-
-  return sched_setscheduler (0, SCHED_RR, &sched) ;
-}
+MODULE_AUTHOR("Harald Geyer <harald@ccbib.org>");
+MODULE_DESCRIPTION("DHT11 humidity/temperature sensor driver");
+MODULE_LICENSE("GPL v2");
