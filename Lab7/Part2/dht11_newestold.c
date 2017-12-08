@@ -164,6 +164,8 @@ static int dht11_decode(struct dht11 *dht11, int offset)
 		dht11->temperature = (((temp_int & 0x7f) << 8) + temp_dec) *
 					((temp_int & 0x80) ? -100 : 100);
 		dht11->humidity = ((hum_int << 8) + hum_dec) * 100;
+		printk(KERN_INFO "Temp: %d\n", (dht11->temperature) / 1000);
+		printk(KERN_INFO "Humidity: %d\n", (dht11->humidity) / 1000);
 	} else if (temp_dec == 0 && hum_dec == 0) {  /* DHT11 */
 		dht11->temperature = temp_int * 1000;
 		dht11->humidity = hum_int * 1000;
@@ -270,7 +272,7 @@ static int dht11_read_raw(struct iio_dev *iio_dev,
 		if (ret)
 			goto err;
 	}
-
+	
 	ret = IIO_VAL_INT;
 	if (chan->type == IIO_TEMP)
 		*val = dht11->temperature;
